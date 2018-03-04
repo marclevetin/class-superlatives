@@ -1,4 +1,4 @@
-const Superlative = require('../models/superlative');
+const Superlative = require('../models/Superlative');
 const mongoose = require('mongoose');
     mongoose.Promise = global.Promise;
 const expect = require("chai").expect;
