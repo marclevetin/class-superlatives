@@ -1,6 +1,6 @@
 const Superlative = require('../models/Superlative');
 const mongoose = require('mongoose');
-  mongoose.Promise = global.Promise;
+    mongoose.Promise = global.Promise;
 const expect = require("chai").expect;
 
 describe("Database - Superlative", function() {
