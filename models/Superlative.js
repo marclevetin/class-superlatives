@@ -9,4 +9,5 @@ const superlativeSchema = new Schema({
 
 const Superlative = mongoose.model("Superlative", superlativeSchema);
 
+
 module.exports = Superlative;
