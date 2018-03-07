@@ -10,7 +10,9 @@ import { Row, Container } from "../../components/Grid";
 class Superlatives extends Component {
   state = {
     superlatives: [],
-    showAddForm: false
+    showAddForm: false,
+    who: '',
+    superlative: 'Most likely to '
   }
 
   componentDidMount() {
@@ -30,6 +32,31 @@ class Superlatives extends Component {
   handleVote = (id) => {
     API.incrementVote(id)
       .then(res => this.fetchSuperlatives())
+      .catch(console.log('error in handleVote'))
+  }
+
+  handleChange = event => {
+    const { name, value } = event.target
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleSubmit = event => {
+    debugger;
+    const payload = {
+      person: this.state.who,
+      words: this.state.superlative,
+      count: 0
+    }
+    API.saveSuperlative(payload)
+      .then(res => this.fetchSuperlatives)
+      .then(res => this.setState({
+        who: '',
+        superlative: 'Most likely to ',
+        showAddForm: false
+      }))
+      .catch(console.log('error in handleSubmit'))
   }
 
   toggleForm = () => {
@@ -51,7 +78,12 @@ class Superlatives extends Component {
       />)
 
     const showAddForm = (this.state.showAddForm) ?
-      <FormContainer /> :
+      <FormContainer
+        who={this.state.who}
+        superlative={this.state.superlative}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+      /> :
       <Button
         words='Add a new superlative'
         handleClick={this.toggleForm}
