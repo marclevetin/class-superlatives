@@ -43,11 +43,10 @@ class Superlatives extends Component {
   }
 
   handleSubmit = event => {
-    debugger;
     const payload = {
       person: this.state.who,
       words: this.state.superlative,
-      count: 0
+      count: 1
     }
     API.saveSuperlative(payload)
       .then(res => this.fetchSuperlatives)
