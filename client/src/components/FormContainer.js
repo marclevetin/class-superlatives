@@ -8,6 +8,9 @@ import {Input} from './Form'
 class FormContainer extends Component {
 
   render() {
+    const whoHasError = (this.props.validateWho) ? 'form-group has-error' : 'form-group'
+    const superlativeHasError = (this.props.validateSuperlative) ? 'form-group has-error' : 'form-group'
+
     return(
       <Col size="sm-8 sm-offset-2">
         <form onSubmit={this.props.handleSubmit}>
@@ -16,6 +19,8 @@ class FormContainer extends Component {
             name='who'
             value={this.props.who}
             handleChange={this.props.handleChange}
+            errorText={this.props.validateWho}
+            formGroupClass={whoHasError}
           />
           <Input
             label='Most likely to do...'
@@ -23,6 +28,8 @@ class FormContainer extends Component {
             placeholder='most likely to'
             value={this.props.superlative}
             handleChange={this.props.handleChange}
+            errorText={this.props.validateSuperlative}
+            formGroupClass={superlativeHasError}
           />
           <Button
             words='Submit'
