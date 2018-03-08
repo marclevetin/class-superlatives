@@ -1,3 +1,3 @@
 module.exports = {
-  Superlative: require("./superlative")
+  Superlative: require("./sauperlative")
 };
