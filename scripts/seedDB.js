@@ -13,19 +13,29 @@ mongoose.connect(
 
 const superlativeSeed = [
   {
-    person: 'John Doe',
-    words: 'Most likely to eat a hamburger',
+    person: 'Ben Baumann',
+    words: "Most likely to (code) => (with) => code + with + 'ES6'",
     count: 0
   },
   {
-    person: 'Jane Doe',
-    words: 'Most likely to consume a frozen beverage on a tropical beach',
-    count: 10
+    person: 'Lauren Wilson',
+    words: 'Most likely to say "ta da!" when you least expect it',
+    count: 0
   },
   {
-    person: 'Sparky the Wonder Squirrle',
-    words: 'Most likely to go nuts during the winter',
-    count: 15
+    person: 'Chase Leinart',
+    words: 'Most likely to dispute the pronunciation of JSON',
+    count: 0
+  },
+  {
+    person: 'Pat Sarsen',
+    words: 'Most likely to accidentally. Yes, that is a complete thought.',
+    count: 0
+  },
+  {
+    person: 'Kris Pelchat',
+    words: 'Most likely to wonder what happened.',
+    count: 0
   }
 ];
 
