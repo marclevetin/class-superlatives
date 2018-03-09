@@ -54,7 +54,6 @@ class Superlatives extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    debugger;
 
     this.validateWho();
     this.validateSuperlative();
