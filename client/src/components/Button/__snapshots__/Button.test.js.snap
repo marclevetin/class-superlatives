@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`string 1`] = `
+<div>
+  <p
+    className="text-center"
+  >
+    <button
+      className="btn btn-primary"
+      onClick={undefined}
+    />
+  </p>
+</div>
+`;
