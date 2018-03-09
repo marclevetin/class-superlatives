@@ -8,13 +8,21 @@ import Button from '../../components/Button'
 import { Row, Container } from "../../components/Grid";
 
 class Superlatives extends Component {
-  state = {
-    superlatives: [],
-    showAddForm: false,
-    who: '',
-    superlative: 'Most likely to ',
-    validateWho: '',
-    validateSuperlative: '',
+  constructor(props) {
+    super(props)
+    this.state = {
+      superlatives: [],
+      showAddForm: false,
+      who: '',
+      superlative: 'Most likely to ',
+      validateWho: '',
+      validateSuperlative: '',
+    }
+
+    // The following line confirms that handleSubmit will never lose "this".
+    // The arrow function automatic context wasn't enough.
+    this.handleSubmit = this.handleSubmit.bind(this)
+
   }
 
   componentDidMount() {
@@ -37,20 +45,22 @@ class Superlatives extends Component {
       .catch(console.log('error in handleVote'))
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target
     this.setState({
       [name]: value
     });
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
+    debugger;
+
     this.validateWho();
     this.validateSuperlative();
 
     if (this.state.validateWho === '' && this.state.validateSuperlative === '' && this.state.who) {
-      const titleCaseWords = this.state.words.slice(0,1).toUpperCase() + this.state.words.toLowerCase().substring(1, this.state.words.length);
+      const titleCaseWords = this.state.superlative.slice(0,1).toUpperCase() + this.state.superlative.toLowerCase().substring(1, this.state.superlative.length);
 
       const payload = {
         person: this.state.who,
@@ -59,11 +69,13 @@ class Superlatives extends Component {
       };
 
       API.saveSuperlative(payload)
-        .then(res => this.fetchSuperlatives)
+        .then(res => this.fetchSuperlatives())
         .then(res => this.setState({
           who: '',
           superlative: 'Most likely to ',
-          showAddForm: false
+          showAddForm: false,
+          validateWho: '',
+          validateSuperlative: ''
         }))
         .catch(console.log('error in handleSubmit'));
     }
@@ -77,28 +89,19 @@ class Superlatives extends Component {
   }
 
   validateWho = (text) => {
-    if (this.state.who.length === 0) {
-      this.setState({
-        validateWho: 'You must nominate a person.'
-      });
-    }
+    const message = (this.state.who.length === 0) ? 'You must nominate a person.' : '';
+
+    this.setState({
+      validateWho: message
+    });
   }
 
   validateSuperlative = () => {
-    let errorMessage = this.state.validateSuperlative;
-
-    (this.state.superlative.slice(0, 15) !== 'Most likely to ')
-      ? errorMessage += "Superlative must begin with 'Most likely to'.  "
-      : errorMessage += '';
-
-    (this.state.superlative.length > 15)
-      ? errorMessage += 'Superlative must not be empty.'
-      : errorMessage += '';
+    const message = (this.state.superlative.length === 0) ? 'Superlative must not be empty.' : '';
 
     this.setState({
-      validateSuperlative: errorMessage
+      validateSuperlative: message
     });
-
   }
 
   render() {
