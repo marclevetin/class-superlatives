@@ -5,7 +5,7 @@ import API from "../../utils/API";
 import Card from '../../components/Card'
 import FormContainer from '../../components/FormContainer'
 import Button from '../../components/Button'
-import { Row, Container } from "../../components/Grid";
+import { Row, Container, Col } from "../../components/Grid";
 
 class Superlatives extends Component {
   constructor(props) {
@@ -123,10 +123,12 @@ class Superlatives extends Component {
         validateWho={this.state.validateWho}
         validateSuperlative={this.state.validateSuperlative}
       /> :
-      <Button
-        words='Add a new superlative'
-        handleClick={this.toggleForm}
-      />
+      <Col size="sm-12">
+        <Button
+          words='Add a new superlative'
+          handleClick={this.toggleForm}
+        />
+      </Col>
     return(
       <Container fluid>
         <Row>
