@@ -1,42 +1,12 @@
-# Create React Express App
+# Class Superlatives
+A website to capture the "best of" for UNH Coding Bootcamp's "September 2017-March 2018" class, built in the MERN stack, styled with Bootstrap 3, and hosted on Heroku.  Purposefully built for possible abuse and probable fun.
 
-## About This Boilerplate
+## See it live
+https://unh-best-of-bootcamp.herokuapp.com/
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
-
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
-
-## Starting the app locally
-
-Start by installing front and backend dependencies. While in this directory, run the following commands:
-
-```
-yarn install
-cd client
-yarn install
-cd ..
-``
-
-After both installations complete, run the following command in your terminal:
-
-```
-yarn start
-```
-
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
-
-## Deployment (Heroku)
-
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
-
-1. Build the React app for production by running the following command:
-
-```
-yarn build
-```
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
+## To install
+1.  Clone the repo
+2.  `yarn install` in the root folder to get server dependencies
+3.  `cd client`
+4.  `yarn install` to get client dependencies
+5.  `yarn start`
