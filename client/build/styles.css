@@ -1,0 +1,17 @@
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row.display-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  min-width: 345px;
+}
+
+#root, html {
+  background-image: url("white_brick_wall_@2X.png");
+  background-repeat: repeat;
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/Button/Button.css"],"names":[],"mappings":"AAAA,QACE,aACA,aAAe","file":"static/css/main.0942e0a3.css","sourcesContent":[".button {\n  float: center;\n  color: #e74944;\n}\n\n\n\n// WEBPACK FOOTER //\n// ./src/components/Button/Button.css"],"sourceRoot":""}
