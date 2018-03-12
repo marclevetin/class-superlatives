@@ -34,7 +34,9 @@ class FormContainer extends Component {
           <Button
             words='Submit'
           />
+          &nbsp;&nbsp;<a onClick={this.props.handleCancel}>Cancel</a>
         </form>
+        <hr />
       </Col>
     )
   }
