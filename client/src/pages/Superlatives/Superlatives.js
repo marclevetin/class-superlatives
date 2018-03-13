@@ -80,6 +80,16 @@ class Superlatives extends Component {
     }
   }
 
+  handleCancel = () => {
+    this.setState({
+      who: '',
+      superlative: 'Most likely to ',
+      showAddForm: false,
+      validateWho: '',
+      validateSuperlative: ''
+    });
+  }
+
   toggleForm = () => {
     const currentState = this.state.showAddForm;
     this.setState({
@@ -112,22 +122,28 @@ class Superlatives extends Component {
         words={superlative.words}
         count={superlative.count}
         handleVote={this.handleVote}
+        who={this.state.who}
+        superlative={this.state.superlative}
+        fetchSuperlatives={this.fetchSuperlatives}
       />)
 
     const showAddForm = (this.state.showAddForm) ?
       <FormContainer
         who={this.state.who}
         superlative={this.state.superlative}
+        handleCancel={this.handleCancel}
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
         validateWho={this.state.validateWho}
         validateSuperlative={this.state.validateSuperlative}
       /> :
       <Col size="sm-12">
-        <Button
-          words='Add a new superlative'
-          handleClick={this.toggleForm}
-        />
+        <p className="text-center">
+          <Button
+            words='Add a new superlative'
+            handleClick={this.toggleForm}
+          />
+        </p>
       </Col>
     return(
       <Container fluid>

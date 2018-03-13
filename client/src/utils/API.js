@@ -13,6 +13,10 @@ export default {
   saveSuperlative: function(payload) {
     return axios.post("/api/superlatives", payload);
   },
+  updateSuperlative: function(id, payload) {
+    const update = { '$set': { person: payload.person, words: payload.words } }
+    return axios.put('/api/superlatives/' + id, update, { new: true })
+  },
   incrementVote: function(id) {
     const update = { $inc: {count: 1} }
     return axios.put('/api/superlatives/' + id, update)

@@ -15,6 +15,8 @@ app.use(routes);
 
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
+// Mongoose debugger
+mongoose.set('debug', true);
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/superlatives",
