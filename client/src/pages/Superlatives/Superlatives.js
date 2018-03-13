@@ -122,6 +122,9 @@ class Superlatives extends Component {
         words={superlative.words}
         count={superlative.count}
         handleVote={this.handleVote}
+        who={this.state.who}
+        superlative={this.state.superlative}
+        fetchSuperlatives={this.fetchSuperlatives}
       />)
 
     const showAddForm = (this.state.showAddForm) ?
