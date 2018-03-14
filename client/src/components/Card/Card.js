@@ -17,6 +17,18 @@ class Card extends Component {
     }
   }
 
+  deleteCard = (id) => {
+    API.deleteSuperlative(id)
+      .then(res =>  this.setState({
+                      purpose: '',
+                      name: '',
+                      words: ''
+                    })
+      )
+      .catch(err => console.log(err))
+      .finally(() => this.props.fetchSuperlatives());
+  }
+
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -75,8 +87,11 @@ class Card extends Component {
           handleChange={this.handleChange}/>
       : <h3>{this.props.words}</h3>;
 
-    const updateButton = (this.state.purpose === 'update')
-      ? <div><Button words='Update' handleClick={() => this.updateForm(this.props.id)}/> <a onClick={this.cancelUpdate}>Cancel</a></div>
+    const updateArea = (this.state.purpose === 'update')
+      ? <div>
+          <Button words='Update' handleClick={() => this.updateForm(this.props.id)}/>  <a onClick={this.cancelUpdate}>Cancel</a>
+          <p className='text-right' onClick={() => this.deleteCard(this.props.id)}><span className="glyphicon glyphicon-trash" aria-hidden="true"></span></p>
+        </div>
       : <a onClick={this.enableUpdate}>Update</a>
 
     const votes = (this.state.purpose === 'update')
@@ -100,7 +115,7 @@ class Card extends Component {
             {votes}
             {voteButton}
             <hr />
-            {updateButton}
+            {updateArea}
           </div>
         </div>
       </Col>
