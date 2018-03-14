@@ -13,7 +13,8 @@ class Card extends Component {
     this.state = {
       purpose: '',
       name: '',
-      words: ''
+      words: '',
+      showDelete: false
     }
   }
 
@@ -22,7 +23,8 @@ class Card extends Component {
       .then(res =>  this.setState({
                       purpose: '',
                       name: '',
-                      words: ''
+                      words: '',
+                      showDelete: false
                     })
       )
       .catch(err => console.log(err))
@@ -48,7 +50,15 @@ class Card extends Component {
     this.setState({
       purpose: '',
       name: '',
-      words: ''
+      words: '',
+      showDelete: false
+    });
+  }
+
+  confirmDelete = () => {
+    const newState = !this.state.showDelete;
+    this.setState({
+      showDelete: newState
     });
   }
 
@@ -87,12 +97,24 @@ class Card extends Component {
           handleChange={this.handleChange}/>
       : <h3>{this.props.words}</h3>;
 
-    const updateArea = (this.state.purpose === 'update')
+    const deleteArea = (this.state.showDelete)
       ? <div>
-          <Button words='Update' handleClick={() => this.updateForm(this.props.id)}/>  <a onClick={this.cancelUpdate}>Cancel</a>
-          <p className='text-right' onClick={() => this.deleteCard(this.props.id)}><span className="glyphicon glyphicon-trash" aria-hidden="true"></span></p>
+          <hr/>
+          <p>Are you sure you want to delete this card?</p>
+          <Button words='Delete' handleClick={() => this.deleteCard(this.props.id)}/> <a onClick={this.cancelUpdate}>Cancel</a>
         </div>
-      : <a onClick={this.enableUpdate}>Update</a>
+      : <p className='text-right' onClick={this.confirmDelete}><span className="glyphicon glyphicon-trash" aria-hidden="true"></span></p>
+
+    const updateArea = (this.state.purpose !== 'update')
+      ? <a onClick={this.enableUpdate}>Update</a>
+      : (this.state.showDelete)
+      ? <div>
+          {deleteArea}
+        </div>
+      : <div>
+          <Button words='Update' handleClick={() => this.updateForm(this.props.id)}/>  <a onClick={this.cancelUpdate}>Cancel</a>
+          {deleteArea}
+        </div>
 
     const votes = (this.state.purpose === 'update')
       ? ''
