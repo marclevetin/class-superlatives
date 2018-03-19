@@ -13,8 +13,22 @@ class Card extends Component {
     this.state = {
       purpose: '',
       name: '',
-      words: ''
+      words: '',
+      showDelete: false
     }
+  }
+
+  deleteCard = (id) => {
+    API.deleteSuperlative(id)
+      .then(res =>  this.setState({
+                      purpose: '',
+                      name: '',
+                      words: '',
+                      showDelete: false
+                    })
+      )
+      .catch(err => console.log(err))
+      .finally(() => this.props.fetchSuperlatives());
   }
 
   handleChange = (event) => {
@@ -36,7 +50,15 @@ class Card extends Component {
     this.setState({
       purpose: '',
       name: '',
-      words: ''
+      words: '',
+      showDelete: false
+    });
+  }
+
+  confirmDelete = () => {
+    const newState = !this.state.showDelete;
+    this.setState({
+      showDelete: newState
     });
   }
 
@@ -75,9 +97,24 @@ class Card extends Component {
           handleChange={this.handleChange}/>
       : <h3>{this.props.words}</h3>;
 
-    const updateButton = (this.state.purpose === 'update')
-      ? <div><Button words='Update' handleClick={() => this.updateForm(this.props.id)}/> <a onClick={this.cancelUpdate}>Cancel</a></div>
-      : <a onClick={this.enableUpdate}>Update</a>
+    const deleteArea = (this.state.showDelete)
+      ? <div>
+          <hr/>
+          <p>Are you sure you want to delete this card?</p>
+          <Button words='Delete' handleClick={() => this.deleteCard(this.props.id)}/> <a onClick={this.cancelUpdate}>Cancel</a>
+        </div>
+      : <p className='text-right' onClick={this.confirmDelete}><span className="glyphicon glyphicon-trash" aria-hidden="true"></span></p>
+
+    const updateArea = (this.state.purpose !== 'update')
+      ? <a onClick={this.enableUpdate}>Update</a>
+      : (this.state.showDelete)
+      ? <div>
+          {deleteArea}
+        </div>
+      : <div>
+          <Button words='Update' handleClick={() => this.updateForm(this.props.id)}/>  <a onClick={this.cancelUpdate}>Cancel</a>
+          {deleteArea}
+        </div>
 
     const votes = (this.state.purpose === 'update')
       ? ''
@@ -100,7 +137,7 @@ class Card extends Component {
             {votes}
             {voteButton}
             <hr />
-            {updateButton}
+            {updateArea}
           </div>
         </div>
       </Col>
