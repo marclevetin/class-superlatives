@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 // dependencies
-import { Col } from "./Grid";
-import Button from './Button'
-import {Input} from './Form'
+import { Col } from "../Grid";
+import Button from '../Button'
+import {Input} from '../Form'
 
 class FormContainer extends Component {
 
