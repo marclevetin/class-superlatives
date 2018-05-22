@@ -118,7 +118,7 @@ class Card extends Component {
 
     const votes = (this.state.purpose === 'update')
       ? ''
-      : <h3>{this.props.count} Votes</h3>
+      : <h3>{this.props.count} {(this.props.count) === 1 ? 'Vote' : 'Votes'}</h3>
 
     const voteButton = (this.state.purpose === 'update')
       ? ''
