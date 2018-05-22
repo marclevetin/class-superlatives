@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 
 import API from "../../utils/API";
 
-import Card from '../../components/Card'
-import FormContainer from '../../components/FormContainer'
-import Button from '../../components/Button'
+import Card from '../../components/Card';
+import FormContainer from '../../components/FormContainer';
+import Button from '../../components/Button';
 import { Row, Container, Col } from "../../components/Grid";
+import { Input } from "../../components/Form";
+// import FilterContainer from '../../components/FilterContainer/FilterContainer';
 
 class Superlatives extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class Superlatives extends Component {
       superlative: 'Most likely to ',
       validateWho: '',
       validateSuperlative: '',
+      filter: ''
     }
 
     // The following line confirms that handleSubmit will never lose "this".
@@ -42,14 +45,21 @@ class Superlatives extends Component {
   handleVote = (id) => {
     API.incrementVote(id)
       .then(res => this.fetchSuperlatives())
-      .catch(console.log('error in handleVote'))
+      .catch(console.log('error in handleVote'));
   }
 
   handleChange = (event) => {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     this.setState({
       [name]: value
     });
+  }
+
+  handleFilterChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      filter: value
+    })
   }
 
   handleSubmit = (event) => {
@@ -114,18 +124,22 @@ class Superlatives extends Component {
   }
 
   render() {
-    const allCards = this.state.superlatives.map(superlative =>
-      <Card
-        key={superlative._id}
-        id={superlative._id}
-        person={superlative.person}
-        words={superlative.words}
-        count={superlative.count}
-        handleVote={this.handleVote}
-        who={this.state.who}
-        superlative={this.state.superlative}
-        fetchSuperlatives={this.fetchSuperlatives}
-      />)
+    const filteredCards = (this.state.filter) ? this.state.superlatives.filter(superlative => superlative.person.toLowerCase().includes(this.state.filter.toLowerCase()), this)
+                                              : this.state.superlatives;
+
+    const allCards = filteredCards
+                      .map(superlative =>
+                        <Card
+                          key={superlative._id}
+                          id={superlative._id}
+                          person={superlative.person}
+                          words={superlative.words}
+                          count={superlative.count}
+                          handleVote={this.handleVote}
+                          who={this.state.who}
+                          superlative={this.state.superlative}
+                          fetchSuperlatives={this.fetchSuperlatives}
+                        /> )
 
     const showAddForm = (this.state.showAddForm) ?
       <FormContainer
@@ -150,6 +164,14 @@ class Superlatives extends Component {
         <Row>
           {showAddForm}
           <hr />
+        </Row>
+        <Row>
+          <Col size="sm-8 sm-offset-2">
+            <Input
+              label="Filter by name"
+              handleChange={this.handleFilterChange}
+            />
+          </Col>
         </Row>
         <Row>
           {allCards}
